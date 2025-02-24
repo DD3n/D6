@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ditt Demokrati',
+      title: 'Ditt Demokrati!',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -21,10 +21,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Represents a card for displaying a voting item.
 class VotingCard extends StatelessWidget {
+  /// The title of the voting item.
   final String title;
+  /// The description of the voting item.
   final String description;
 
+  /// Creates a [VotingCard].
   const VotingCard({super.key, required this.title, required this.description});
 
   @override
@@ -34,22 +38,20 @@ class VotingCard extends StatelessWidget {
       child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            children: <Widget>[
+            children: [
               Text(title,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold)),
               Text(description),
               ElevatedButton(
-                onPressed: () {
-                  // Handle vote button press
-                },
+                onPressed: () {},
                 child: const Text('Vote'),
               ),
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }
 
@@ -124,9 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const VotingCard(
-              title: 'Voting Item Title',
+              title: 'Bør Norge bli medlem av EU?',
               description:
-                  'This is a description of the voting item. You can vote on it.',
+                  'Bør Norge søke EU medlemskap i 2025?.',
             ),
 
             const Text('You have pushed the button this many times:'),
