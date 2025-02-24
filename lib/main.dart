@@ -28,6 +28,7 @@ class VotingCard extends StatelessWidget {
   /// The description of the voting item.
   final String description;
 
+
   /// Creates a [VotingCard].
   const VotingCard({super.key, required this.title, required this.description});
 
@@ -36,22 +37,44 @@ class VotingCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(16.0),
       child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(description),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Vote'),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+            Text(description),
+            const SizedBox(height: 16),
+            // Use Wrap with dynamic direction based on screen width
+            Wrap(
+              spacing: 10, // Horizontal spacing between buttons
+              runSpacing: 10, // Vertical spacing between rows
+              alignment: WrapAlignment.center, // Center the buttons horizontally
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle "Yes" button press
+                  },
+                  child: const Text('Yes'),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('No'),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Blank'),
+                ),
+              ],
+            ),
+          ],
         ),
-      );
-    
+      ),
+    );
   }
 }
 
@@ -96,9 +119,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900], // Dark blue background color
-        title:  Text(
+      appBar: AppBar(backgroundColor: Colors.blue[900],
+        title: Text(
+
           widget.title,
           style: const TextStyle(
             color: Colors.white, // White text color
@@ -126,11 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const VotingCard(
-              title: 'Bør Norge bli medlem av EU?',
-              description:
+              title: 'Bør Norge bli medlem av EU?', description:
                   'Bør Norge søke EU medlemskap i 2025?.',
             ),
-
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
