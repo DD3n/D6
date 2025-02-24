@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,53 +24,130 @@ class MyApp extends StatelessWidget {
 class VotingCard extends StatelessWidget {
   /// The title of the voting item.
   final String title;
+
   /// The description of the voting item.
   final String description;
-
 
   /// Creates a [VotingCard].
   const VotingCard({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
+    // Define minimum and maximum widths for the card
+    const double minCardWidth = 300.0; // Minimum width for small screens
+    const double maxCardWidth = 500.0; // Maximum width for large screens
+    const double cardHeight = 200.0; // Consistent height for all cards
+
+    // Calculate the card width based on screen size, constrained by min and max
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = screenWidth.clamp(minCardWidth, maxCardWidth);
+
+    // Calculate the minimum width for buttons based on card width
+    const double minButtonWidth =
+        80.0; // Adjust this to fit "Blank" and ensure "Yes" and "No" are at least as wide
+
     return Card(
       margin: const EdgeInsets.all(16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      child: SizedBox(
+        width: cardWidth, // Use calculated width, constrained by min and max
+        height: cardHeight, // Ensure consistent height for all cards
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Center the content vertically
+            crossAxisAlignment:
+                CrossAxisAlignment.center, // Center the content horizontally
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center, // Center the title text
+                maxLines: 2, // Allow title to wrap to two lines if needed
+                overflow:
+                    TextOverflow.ellipsis, // Handle overflow with ellipsis
               ),
-            ),
-            Text(description),
-            const SizedBox(height: 16),
-            // Use Wrap with dynamic direction based on screen width
-            Wrap(
-              spacing: 10, // Horizontal spacing between buttons
-              runSpacing: 10, // Vertical spacing between rows
-              alignment: WrapAlignment.center, // Center the buttons horizontally
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle "Yes" button press
-                  },
-                  child: const Text('Yes'),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('No'),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Blank'),
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(
+                height: 8,
+              ), // Add spacing between title and description
+              Text(
+                description,
+                textAlign: TextAlign.center, // Center the description text
+                maxLines: 2, // Allow description to wrap to two lines if needed
+                overflow:
+                    TextOverflow.ellipsis, // Handle overflow with ellipsis
+              ),
+              const SizedBox(height: 16),
+              // Use Wrap with dynamic direction based on screen width
+              Wrap(
+                spacing: 10, // Horizontal spacing between buttons
+                runSpacing: 10, // Vertical spacing between rows
+                alignment:
+                    WrapAlignment.center, // Center the buttons horizontally
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                        255,
+                        55,
+                        156,
+                        55,
+                      ), // Light green color
+                      minimumSize: const Size(
+                        minButtonWidth,
+                        40,
+                      ), // Minimum width and height for consistency
+                    ),
+                    onPressed: () {
+                      // Handle "Yes" button press
+                    },
+                    child: const Text(
+                      'Yes',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                        255,
+                        209,
+                        47,
+                        47,
+                      ), // Red color
+                      minimumSize: const Size(
+                        minButtonWidth,
+                        40,
+                      ), // Minimum width and height for consistency
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      'No',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(
+                        255,
+                        201,
+                        200,
+                        200,
+                      ), // Darker grey color
+                      minimumSize: const Size(
+                        minButtonWidth,
+                        40,
+                      ), // Minimum width and height for consistency
+                    ),
+                    onPressed: () {},
+                    child: const Text('Blank'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -80,15 +156,6 @@ class VotingCard extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -101,70 +168,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.blue[900],
+      appBar: AppBar(
+        backgroundColor: Colors.blue[900],
         title: Text(
-
           widget.title,
           style: const TextStyle(
             color: Colors.white, // White text color
           ),
         ),
       ),
-      backgroundColor: Colors.blue[100],
-
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const VotingCard(
-              title: 'Bør Norge bli medlem av EU?', description:
-                  'Bør Norge søke EU medlemskap i 2025?.',
-            ),
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      backgroundColor: const Color.fromARGB(255, 217, 233, 246),
+      body: SingleChildScrollView(
+        // Make the content scrollable to handle overflow
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const VotingCard(
+                title: 'Bør Norge bli medlem av EU?',
+                description: 'Bør Norge søke EU medlemskap i 2025?.',
+              ),
+              const VotingCard(
+                title: 'Skal Norge innføre 6-timers arbeidsdag?',
+                description: 'Skal Norge teste en 6-timers arbeidsdag i 2025?.',
+              ),
+              const VotingCard(
+                title: 'Bør Norge øke skatter for å finansiere helsetjenester?',
+                description:
+                    'Bør Norge øke skatter for bedre helsetjenester i 2025?.',
+              ),
+              const SizedBox(height: 16), // Add spacing before the counter
+              const Text('You have pushed the button this many times:'),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
