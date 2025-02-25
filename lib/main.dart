@@ -42,22 +42,21 @@ class VotingCard extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double cardWidth = screenWidth.clamp(minCardWidth, maxCardWidth);
 
-    // Calculate the minimum width for buttons based on card width
-    const double minButtonWidth =
-        80.0; // Adjust this to fit "Blank" and ensure "Yes" and "No" are at least as wide
+    // Define a minimum button width
+    const double minButtonWidth = 80.0;
 
     return Card(
       margin: const EdgeInsets.all(16.0),
       child: SizedBox(
-        width: cardWidth, // Use calculated width, constrained by min and max
-        height: cardHeight, // Ensure consistent height for all cards
+        width: cardWidth,
+        height: cardHeight,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment:
-                MainAxisAlignment.center, // Center the content vertically
+                MainAxisAlignment.center, // Vertically center content
             crossAxisAlignment:
-                CrossAxisAlignment.center, // Center the content horizontally
+                CrossAxisAlignment.center, // Horizontally center content
             children: [
               Text(
                 title,
@@ -65,41 +64,27 @@ class VotingCard extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-                textAlign: TextAlign.center, // Center the title text
-                maxLines: 2, // Allow title to wrap to two lines if needed
-                overflow:
-                    TextOverflow.ellipsis, // Handle overflow with ellipsis
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(
-                height: 8,
-              ), // Add spacing between title and description
+              const SizedBox(height: 8),
               Text(
                 description,
-                textAlign: TextAlign.center, // Center the description text
-                maxLines: 2, // Allow description to wrap to two lines if needed
-                overflow:
-                    TextOverflow.ellipsis, // Handle overflow with ellipsis
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 16),
-              // Use Wrap with dynamic direction based on screen width
               Wrap(
-                spacing: 10, // Horizontal spacing between buttons
-                runSpacing: 10, // Vertical spacing between rows
-                alignment:
-                    WrapAlignment.center, // Center the buttons horizontally
+                spacing: 10,
+                runSpacing: 10,
+                alignment: WrapAlignment.center,
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                        255,
-                        55,
-                        156,
-                        55,
-                      ), // Light green color
-                      minimumSize: const Size(
-                        minButtonWidth,
-                        40,
-                      ), // Minimum width and height for consistency
+                      backgroundColor: const Color.fromARGB(255, 55, 156, 55),
+                      minimumSize: const Size(minButtonWidth, 40),
                     ),
                     onPressed: () {
                       // Handle "Yes" button press
@@ -111,18 +96,12 @@ class VotingCard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                        255,
-                        209,
-                        47,
-                        47,
-                      ), // Red color
-                      minimumSize: const Size(
-                        minButtonWidth,
-                        40,
-                      ), // Minimum width and height for consistency
+                      backgroundColor: const Color.fromARGB(255, 209, 47, 47),
+                      minimumSize: const Size(minButtonWidth, 40),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Handle "No" button press
+                    },
                     child: const Text(
                       'No',
                       style: TextStyle(color: Colors.white),
@@ -130,18 +109,12 @@ class VotingCard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                        255,
-                        201,
-                        200,
-                        200,
-                      ), // Darker grey color
-                      minimumSize: const Size(
-                        minButtonWidth,
-                        40,
-                      ), // Minimum width and height for consistency
+                      backgroundColor: const Color.fromARGB(255, 201, 200, 200),
+                      minimumSize: const Size(minButtonWidth, 40),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Handle "Blank" button press
+                    },
                     child: const Text('Blank'),
                   ),
                 ],
@@ -156,7 +129,6 @@ class VotingCard extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -177,20 +149,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        title: Text(
-          widget.title,
-          style: const TextStyle(
-            color: Colors.white, // White text color
-          ),
-        ),
+        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
       ),
       backgroundColor: const Color.fromARGB(255, 217, 233, 246),
       body: SingleChildScrollView(
-        // Make the content scrollable to handle overflow
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               const VotingCard(
                 title: 'Bør Norge bli medlem av EU?',
                 description: 'Bør Norge søke EU medlemskap i 2025?.',
@@ -204,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 description:
                     'Bør Norge øke skatter for bedre helsetjenester i 2025?.',
               ),
-              const SizedBox(height: 16), // Add spacing before the counter
+              const SizedBox(height: 16),
               const Text('You have pushed the button this many times:'),
               Text(
                 '$_counter',
