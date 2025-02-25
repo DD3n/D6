@@ -8,11 +8,15 @@ environment:
   sdk: ">=3.7.0-209.1.beta <4.0.0"
 
 dependencies:
+  http: ^1.2.1
+
+
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
+  dwds: ^24.3.5
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
